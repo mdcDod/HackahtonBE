@@ -72,7 +72,6 @@ def contact2KB(intent, entity):
         response = requests.get(url, headers=headers)
         index_list = response.json()
         pprint(index_list)
-
         searchstring = "&count=true&search=" + entity + "&queryType=full"
         print(dataDict[intent])
         url = endpoint + "indexes/" + dataDict[intent] + "/docs" + api_version + searchstring
@@ -82,16 +81,18 @@ def contact2KB(intent, entity):
         print(len(query))
 
         if len(query["value"]) == 0:
-            returnData = "Sorry can't find " + entity + " data :("
+            returnData = "Sometimes, " + entity + " does't find what " + entity + " needs."
         elif intent == "People.GetPhone":
-            returnData = "The number of " + query["value"][0]["name"] + " is " + query["value"][0]["phone"]
+            returnData = query["value"][0]["name"] + "'s number is " + query["value"][0]["phone"]
         elif intent == "People.GetMail":
-            returnData = "The Email of " + query["value"][0]["name"] + " is " + query["value"][0]["email"]
+            returnData = query["value"][0]["name"] + "'s email is " + query["value"][0]["email"]
         else:
-            returnData = "Sorry I can't understand what you want :("
+            returnData = "I do not understand what do you want."
+        returnData = "I was not able to find the information about " + entity + '"Failure is only the opportunity to begin again. Only this time more wisely."'
 
     except Exception as e:
-        returnData = "Sorry can't find " + entity + " data :("
+        returnData = "Sometimes, " + entity + " does't find what " + entity + " needs."
+        pass
 
     return returnData
 

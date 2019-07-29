@@ -21,11 +21,11 @@ def dod(question):
     tempDict = {}
     mydata = contact2Luiz(question)
     if mydata[0] == 'None' and mydata[1] == 'None':
-        tempDict = {"data": "Sorry I can't find answer for your question :(", "type":"Text"}
+        tempDict = {"data": "Sometimes in life you cannot find all the answers. This is one of theses times.", "type":"Text"}
     elif mydata[0] == 'GoodGreeting':
-        tempDict = {"data": "You are so nice!!!!! :)", "type":"Text"}
+        tempDict = {"data": "I thank you.", "type":"Text"}
     elif mydata[0] == 'BadGreeting':
-        tempDict = {"data": "You are not nice!!!!! :(", "type":"Text"}
+        tempDict = {"data": "This is not a nice thing to say.", "type":"Text"}
     else:
         data = contact2KB(mydata[0], mydata[1])
         if sourceLang != 'en':
