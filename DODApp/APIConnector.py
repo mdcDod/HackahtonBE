@@ -31,13 +31,16 @@ def contact2Luiz(slang):
             headers=headers, params=params)
         data = r.json()
         print(data)
-
-        print("intent: " + data["topScoringIntent"]["intent"])
         intent = data["topScoringIntent"]["intent"]
 
         try:
-            print("entities: " + data["entities"][0]["entity"])
             entity = data["entities"][0]["entity"]
+            try:
+                entity2 = data["entities"][1]["entity"]
+                if len(entity) < entity2:
+                    entity = entity2
+            except Exception as e:
+                print("There is one entity!!!!!")
         except Exception as e:
             if intent != 'GoodGreeting' and intent != 'BadGreeting':
                 intent = 'None'
@@ -71,7 +74,7 @@ def contact2KB(intent, entity):
         index_list = response.json()
         pprint(index_list)
 
-        searchstring = "&count=true&search=" + entity + "~&queryType=full"
+        searchstring = "&count=true&search=" + entity + "&queryType=full"
         print(dataDict[intent])
         url = endpoint + "indexes/" + dataDict[intent] + "/docs" + api_version + searchstring
         response = requests.get(url, headers=headers, json=searchstring)
@@ -80,7 +83,7 @@ def contact2KB(intent, entity):
         print(len(query))
 
         if len(query["value"]) == 0:
-            returnData = "Sorry can't find " + entity + "phone number :("
+            returnData = "Sorry can't find " + entity + " data :("
         elif intent == "People.GetPhone":
             returnData = "The number of " + query["value"][0]["name"] + " is " + query["value"][0]["phone"]
         elif intent == "People.GetMail":
