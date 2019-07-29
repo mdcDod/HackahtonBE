@@ -34,10 +34,13 @@ def contact2Luiz(slang):
 
         print("intent: " + data["topScoringIntent"]["intent"])
         intent = data["topScoringIntent"]["intent"]
-        print("entities: " + data["entities"][0]["entity"])
-        entity = data["entities"][0]["entity"]
-        if intent == 'None' or entity == 'None':
-            intent = 'None'
+
+        try:
+            print("entities: " + data["entities"][0]["entity"])
+            entity = data["entities"][0]["entity"]
+        except Exception as e:
+            if intent != 'GoodGreeting' and intent != 'BadGreeting':
+                intent = 'None'
             entity = 'None'
 
     except Exception as e:
@@ -78,9 +81,14 @@ def contact2KB(intent, entity):
 
         if len(query["value"]) == 0:
             returnData = "Sorry can't find " + entity + "phone number :("
-        else:
+        elif intent == "People.GetPhone":
             returnData = "The number of " + query["value"][0]["name"] + " is " + query["value"][0]["phone"]
+        elif intent == "People.GetMail":
+            returnData = "The Email of " + query["value"][0]["name"] + " is " + query["value"][0]["email"]
+        else:
+            returnData = "Sorry I can't find any Data :("
 
     except Exception as e:
-        returnData = "Can not find the Data"
+        returnData = "Sorry I can't find any Data :("
+
     return returnData
