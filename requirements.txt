@@ -13,7 +13,6 @@ dnspython==1.15.0
 enum34==1.1.6
 Flask==1.1.1
 future==0.16.0
-gyp==0.1
 hyperlink==17.3.1
 idna==2.6
 incremental==16.10.1
