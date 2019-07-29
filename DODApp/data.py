@@ -1,3 +1,3 @@
 dataDict = {
-    "People.GetPhone": "contacts"
+    "People.GetPhone": "cosmosdb-index"
 }

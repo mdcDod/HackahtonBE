@@ -47,6 +47,7 @@ def contact2Luiz(slang):
 
     data2Return.append(intent)
     data2Return.append(entity)
+    print("intent = " + intent + " and the entity = " + entity)
     return data2Return
 
 
@@ -57,25 +58,29 @@ Function for connecting to knowledge base and getting the answer for the entity 
 
 def contact2KB(intent, entity):
     print("\n------ Connecting to knowledge base and getting the answer ------\n")
-    endpoint = 'https://dod-search.search.windows.net/'
-    api_version = '?api-version=2019-05-06'
-    headers = {'Content-Type': 'application/json', 'api-key': 'BD01539BBACCAC89904DEF733C2024D5'}
+    try:
+        endpoint = 'https://dod-search.search.windows.net/'
+        api_version = '?api-version=2019-05-06'
+        headers = {'Content-Type': 'application/json', 'api-key': '5C138BD2483D803143DA924834CCA220'}
 
-    url = endpoint + "indexes" + api_version + "&$select=name"
-    response = requests.get(url, headers=headers)
-    index_list = response.json()
-    pprint(index_list)
+        url = endpoint + "indexes" + api_version + "&$select=name"
+        response = requests.get(url, headers=headers)
+        index_list = response.json()
+        pprint(index_list)
 
-    searchstring = "&count=true&search=" + entity + "~&queryType=full"
-    print(dataDict[intent])
-    url = endpoint + "indexes/" + dataDict[intent] + "/docs" + api_version + searchstring
-    response = requests.get(url, headers=headers, json=searchstring)
-    query = response.json()
-    pprint(query)
-    print(len(query))
+        searchstring = "&count=true&search=" + entity + "~&queryType=full"
+        print(dataDict[intent])
+        url = endpoint + "indexes/" + dataDict[intent] + "/docs" + api_version + searchstring
+        response = requests.get(url, headers=headers, json=searchstring)
+        query = response.json()
+        pprint(query)
+        print(len(query))
 
-    if len(query["value"]) == 0:
-        returnData = "Sorry can't find " + entity + "phone number :("
-    else:
-        returnData = "The number of " + query["value"][0]["contact_name"] + " is " + query["value"][0]["contact_number"]
+        if len(query["value"]) == 0:
+            returnData = "Sorry can't find " + entity + "phone number :("
+        else:
+            returnData = "The number of " + query["value"][0]["name"] + " is " + query["value"][0]["phone"]
+
+    except Exception as e:
+        returnData = "Can not find the Data"
     return returnData
