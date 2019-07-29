@@ -89,7 +89,7 @@ def contact2KB(intent, entity):
         elif intent == "People.GetMail":
             returnData = "The Email of " + query["value"][0]["name"] + " is " + query["value"][0]["email"]
         else:
-            returnData = "Sorry I can't find any Data :("
+            returnData = "Sorry I can't understand what you want :("
 
     except Exception as e:
         returnData = "Sorry I can't find any Data :("
