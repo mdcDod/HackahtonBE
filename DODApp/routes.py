@@ -1,13 +1,23 @@
 from DODApp import app
 from DODApp.APIConnector import contact2Luiz
 from DODApp.APIConnector import contact2KB
-import json
+from DODApp.APIConnector import FindLang
+from DODApp.APIConnector import Translate
 
 
 @app.route('/')
 @app.route('/dod/<question>')
 
 def dod(question):
+    sourceLang = FindLang(question)
+    if sourceLang != 'en':
+        print(sourceLang)
+        print("not english")
+        lang = sourceLang + "-en"
+        question = Translate(question, lang)
+    else:
+        print("english")
+
     tempDict = {}
     mydata = contact2Luiz(question)
     if mydata[0] == 'None' and mydata[1] == 'None':
@@ -17,5 +27,8 @@ def dod(question):
     elif mydata[0] == 'BadGreeting':
         tempDict = {"data": "You are not nice!!!!! :(", "type":"Text"}
     else:
-        tempDict = {"data": contact2KB(mydata[0], mydata[1]), "type":"Text"}
+        data = contact2KB(mydata[0], mydata[1])
+        if sourceLang != 'en':
+            data = Translate(data, "en-" + sourceLang)
+        tempDict = {"data": data, "type": "Text"}
     return tempDict

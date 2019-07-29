@@ -68,7 +68,6 @@ def contact2KB(intent, entity):
         endpoint = 'https://dod-search.search.windows.net/'
         api_version = '?api-version=2019-05-06'
         headers = {'Content-Type': 'application/json', 'api-key': '5C138BD2483D803143DA924834CCA220'}
-
         url = endpoint + "indexes" + api_version + "&$select=name"
         response = requests.get(url, headers=headers)
         index_list = response.json()
@@ -92,6 +91,16 @@ def contact2KB(intent, entity):
             returnData = "Sorry I can't understand what you want :("
 
     except Exception as e:
-        returnData = "Sorry I can't find any Data :("
+        returnData = "Sorry can't find " + entity + " data :("
 
     return returnData
+
+def FindLang(text):
+        response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/detect?key=trnsl.1.1.20190729T163126Z.07d8bee6b2eb7896.8c9c9876111d29c46791a76c2b2e4325a4b1d42a&text=' + text)
+        return response.json()['lang']
+
+def Translate(text, direction):
+    response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190729T163126Z.07d8bee6b2eb7896.8c9c9876111d29c46791a76c2b2e4325a4b1d42a&text=' + text + '&lang=' + direction)
+    data = response.json()["text"]
+    print(data)
+    return data
