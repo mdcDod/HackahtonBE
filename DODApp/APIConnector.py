@@ -88,10 +88,9 @@ def contact2KB(intent, entity):
             returnData = query["value"][0]["name"] + "'s email is " + query["value"][0]["email"]
         else:
             returnData = "I do not understand what do you want."
-        returnData = "I was not able to find the information about " + entity + '"Failure is only the opportunity to begin again. Only this time more wisely."'
 
     except Exception as e:
-        returnData = "Sometimes, " + entity + " does't find what " + entity + " needs."
+        returnData = "I was not able to find the information about " + entity + ' "Failure is only the opportunity to begin again. Only this time more wisely."'
         pass
 
     return returnData
