@@ -1,4 +1,5 @@
 import requests
+import random
 from pprint import pprint
 from DODApp.data import dataDict
 
@@ -42,7 +43,7 @@ def contact2Luiz(slang):
             except Exception as e:
                 print("There is one entity!!!!!")
         except Exception as e:
-            if intent != 'GoodGreeting' and intent != 'BadGreeting':
+            if intent != 'GoodGreeting' and intent != 'BadGreeting' and intent != 'Quotes':
                 intent = 'None'
             entity = 'None'
 
