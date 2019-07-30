@@ -86,6 +86,10 @@ def contact2KB(intent, entity):
             returnData = query["value"][0]["name"] + "'s number is " + query["value"][0]["phone"]
         elif intent == "People.GetMail":
             returnData = query["value"][0]["name"] + "'s email is " + query["value"][0]["email"]
+        elif intent == "Product.GetPrice":
+            returnData = query["value"][0]["product_name"] + "'s price is " + query["value"][0]["product_price"]
+        elif intent == "Environment.GetInCharge":
+            returnData = "The " + query["value"][0]["relevant_group"] + " is in charge of " + query["value"][0]["subject"]
         else:
             returnData = "I do not understand what do you want."
 
@@ -118,7 +122,6 @@ def Wolf(text):
         print(res)
 
     return res
-
 
 def FindLang(text):
         response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/detect?key=trnsl.1.1.20190729T163126Z.07d8bee6b2eb7896.8c9c9876111d29c46791a76c2b2e4325a4b1d42a&text=' + text)

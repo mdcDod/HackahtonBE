@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 dataDict = {
     "People.GetPhone": "cosmosdb-index",
-    "People.GetMail": "cosmosdb-index"
+    "People.GetMail": "cosmosdb-index",
+    "Product.GetPrice": "cosmosdb-product-index",
+    "Environment.GetInCharge": "cosmosdb-subject-index"
 }
 
 dodQuotes = [
