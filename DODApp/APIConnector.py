@@ -87,7 +87,10 @@ def contact2KB(intent, entity):
         elif intent == "People.GetMail":
             returnData = query["value"][0]["name"] + "'s email is " + query["value"][0]["email"]
         elif intent == "Product.GetPrice":
-            returnData = query["value"][0]["product_name"] + "'s price is " + query["value"][0]["product_price"]
+            print("\n\n\n nigger")
+            print(query["value"][0]["product_name"])
+            print(query["value"][0]["product_price"])
+            returnData = query["value"][0]["product_name"] + "'s price is " + str(query["value"][0]["product_price"])
         elif intent == "Environment.GetInCharge":
             returnData = "The " + query["value"][0]["relevant_group"] + " is in charge of " + query["value"][0]["subject"]
         else:
