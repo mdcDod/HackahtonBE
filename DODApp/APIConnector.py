@@ -97,9 +97,13 @@ def contact2KB(intent, entity):
 
 
 def Wolf(text):
+    print("hello wolf")
+    print("text = " + text)
     try:
-        text = text[0]
-    except:
+        if type(text) is list or type(text) is dict:
+            text = text[0]
+            print()
+    except Exception as e:
         print(text)
     print("text = " + text)
     client = wolframalpha.Client("2GLGUV-8EA25Y85JA")
@@ -109,7 +113,7 @@ def Wolf(text):
         print(res.results)
         res = next(res.results).text
         print(res)
-    except:
+    except Exception as e:
         res = "None"
         print(res)
 
@@ -121,7 +125,10 @@ def FindLang(text):
         return response.json()['lang']
 
 def Translate(text, direction):
-    response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190729T163126Z.07d8bee6b2eb7896.8c9c9876111d29c46791a76c2b2e4325a4b1d42a&text=' + text + '&lang=' + direction)
-    data = response.json()["text"]
-    print(data)
+    try:
+        response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190729T163126Z.07d8bee6b2eb7896.8c9c9876111d29c46791a76c2b2e4325a4b1d42a&text=' + text + '&lang=' + direction)
+        data = response.json()["text"]
+        print(data)
+    except Exception as e:
+        data = "en"
     return data

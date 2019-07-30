@@ -11,18 +11,26 @@ from DODApp.APIConnector import Wolf
 @app.route('/dod/<question>')
 
 def dod(question):
-    sourceLang = FindLang(question)
-    if sourceLang != 'en':
+    try:
+        sourceLang = FindLang(question)
+        print(sourceLang)
+    except Exception as e:
+        return "translate exception"
+        sourceLang = 'en'
+
+    if sourceLang != 'en' and len(sourceLang) == 2:
         print(sourceLang)
         print("not english")
         lang = sourceLang + "-en"
         question = Translate(question, lang)
     else:
+        sourceLang = 'en'
         print("english")
 
     tempDict = {}
     mydata = contact2Luiz(question)
     if mydata[0] == 'None' and mydata[1] == 'None':
+
         data = Wolf(question)
         if data == "None":
             tempDict = {"data": "Sometimes in life you cannot find all the answers. This is one of theses times.", "type":"Text"}
