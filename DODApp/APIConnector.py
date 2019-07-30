@@ -92,7 +92,7 @@ def contact2KB(intent, entity):
             print(query["value"][0]["product_price"])
             returnData = query["value"][0]["product_name"] + "'s price is " + str(query["value"][0]["product_price"])
         elif intent == "Environment.GetInCharge":
-            returnData = "The " + query["value"][0]["relevant_group"] + " is in charge of " + query["value"][0]["subject"]
+            returnData = query["value"][0]["relevant_group"] + " is in charge of " + query["value"][0]["subject"]
         else:
             returnData = "I do not understand what do you want."
 
