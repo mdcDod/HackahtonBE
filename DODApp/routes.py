@@ -5,7 +5,7 @@ from DODApp.APIConnector import FindLang
 from DODApp.APIConnector import Translate
 import random
 from DODApp.data import dodQuotes
-
+from DODApp.APIConnector import Wolf
 
 @app.route('/')
 @app.route('/dod/<question>')
@@ -23,7 +23,13 @@ def dod(question):
     tempDict = {}
     mydata = contact2Luiz(question)
     if mydata[0] == 'None' and mydata[1] == 'None':
-        tempDict = {"data": "Sometimes in life you cannot find all the answers. This is one of theses times.", "type":"Text"}
+        data = Wolf(question)
+        if data == "None":
+            tempDict = {"data": "Sometimes in life you cannot find all the answers. This is one of theses times.", "type":"Text"}
+        else:
+            if sourceLang != 'en':
+                data = Translate(data, "en-" + sourceLang)
+            tempDict = {"data": data, "type": "Text"}
     elif mydata[0] == 'GoodGreeting':
         tempDict = {"data": "I thank you.", "type":"Text"}
     elif mydata[0] == 'BadGreeting':

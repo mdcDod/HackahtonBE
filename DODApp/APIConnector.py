@@ -2,12 +2,11 @@ import requests
 import random
 from pprint import pprint
 from DODApp.data import dataDict
+import wolframalpha
 
 '''
 connecting to luis and getting the intent and the entity of the the given slang
 '''
-
-
 def contact2Luiz(slang):
     print("\n------ Connecting to luis and getting the intent and the entity of the the given slang ------\n")
     data2Return = []
@@ -95,6 +94,27 @@ def contact2KB(intent, entity):
         pass
 
     return returnData
+
+
+def Wolf(text):
+    try:
+        text = text[0]
+    except:
+        print(text)
+    print("text = " + text)
+    client = wolframalpha.Client("2GLGUV-8EA25Y85JA")
+    res = client.query(text)
+    # print(res)
+    try:
+        print(res.results)
+        res = next(res.results).text
+        print(res)
+    except:
+        res = "None"
+        print(res)
+
+    return res
+
 
 def FindLang(text):
         response = requests.get('https://translate.yandex.net/api/v1.5/tr.json/detect?key=trnsl.1.1.20190729T163126Z.07d8bee6b2eb7896.8c9c9876111d29c46791a76c2b2e4325a4b1d42a&text=' + text)
